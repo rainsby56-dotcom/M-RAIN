@@ -6,7 +6,9 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Search - My sample book</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Fungsi untuk menggambar objek &#8212; My sample book</title>
   
   
   
@@ -58,12 +60,11 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'search';</script>
-  <script src="_static/searchtools.js"></script>
-  <script src="_static/language_data.js"></script>
-  <script src="searchindex.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'materi3';</script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="#" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Content with notebooks" href="notebooks.html" />
+    <link rel="prev" title="A. Determinan" href="materi2.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -85,7 +86,7 @@
   <dialog id="pst-search-dialog">
     
 <form class="bd-search d-flex align-items-center"
-      action="#"
+      action="search.html"
       method="get">
   <i class="fa-solid fa-magnifying-glass"></i>
   <input type="search"
@@ -114,8 +115,6 @@
     <div class="bd-container__inner bd-page-width">
       
       
-      
-        
       
       <dialog id="pst-primary-sidebar-modal"></dialog>
       <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
@@ -169,7 +168,7 @@
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="materi1.html">1. SPL (Sistem Persamaan Linear)</a></li>
 
 
@@ -179,7 +178,7 @@
 
 <li class="toctree-l1"><a class="reference internal" href="materi2.html">A. Determinan</a></li>
 
-<li class="toctree-l1"><a class="reference internal" href="materi3.html">Fungsi untuk menggambar objek</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Fungsi untuk menggambar objek</a></li>
 
 
 
@@ -266,7 +265,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fsearch.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fmateri3.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -278,6 +277,54 @@
   </span>
 <span class="btn__text-container">Open issue</span>
 </a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/materi3.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
 </li>
       
   </ul>
@@ -311,7 +358,9 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -320,41 +369,177 @@
 </div>
               
               
-  <div class="bd-search-container">
-    <h1>Search</h1>
-    <noscript>
-      <div class="admonition error">
-        <p class="admonition-title">Error</p>
-        <p>Please activate JavaScript to enable the search functionality.</p>
-      </div>
-    </noscript>
-    
-<form class="bd-search d-flex align-items-center"
-      action="#"
-      method="get">
-  <i class="fa-solid fa-magnifying-glass"></i>
-  <input type="search"
-         class="form-control"
-         name="q"
-         placeholder="Search this book..."
-         aria-label="Search this book..."
-         autocomplete="off"
-         autocorrect="off"
-         autocapitalize="off"
-         spellcheck="false"/>
-  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-    <div id="search-results"></div>
-  </div>
-  <script>
-    // Activate the search field on page load
-    let searchInput = document.querySelector("form.bd-search input");
-    if (searchInput) {
-        searchInput.focus();
-        searchInput.select();
-        console.log("[PST]: Set focus on search field.");
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Fungsi untuk menggambar objek</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Fungsi untuk menggambar objek</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#ambil-input-dari-user">Ambil input dari user</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tombol-tampilkan-awal">Tombol tampilkan awal</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#transformasi-refleksi-sumbu-y">Transformasi refleksi sumbu Y</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#update-manual">Update manual</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#gui-utama">GUI utama</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#input-titik">Input titik</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tombol">Tombol</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-matplotlib">Setup matplotlib</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <p>import tkinter as tk
+from tkinter import messagebox
+import matplotlib.pyplot as plt</p>
+<section class="tex2jax_ignore mathjax_ignore" id="fungsi-untuk-menggambar-objek">
+<h1>Fungsi untuk menggambar objek<a class="headerlink" href="#fungsi-untuk-menggambar-objek" title="Link to this heading">#</a></h1>
+<p>def gambar_titik(points, title=”Objek”):
+plt.clf()</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># Tutup bentuk (kembali ke titik awal)
+x = [p[0] for p in points] + [points[0][0]]
+y = [p[1] for p in points] + [points[0][1]]
+
+plt.plot(x, y, marker=&#39;o&#39;)
+
+# Gambar sumbu kartesius
+plt.axhline(0)
+plt.axvline(0)
+
+plt.grid(True)
+plt.title(title)
+plt.xlim(-10, 10)
+plt.ylim(-10, 10)
+
+plt.draw()
+</pre></div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="ambil-input-dari-user">
+<h1>Ambil input dari user<a class="headerlink" href="#ambil-input-dari-user" title="Link to this heading">#</a></h1>
+<p>def ambil_titik():
+try:
+points = []
+for i in range(4):
+x = float(entries[i][0].get())
+y = float(entries[i][1].get())
+points.append((x, y))
+return points
+except:
+messagebox.showerror(“Error”, “Input tidak valid!”)
+return None</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="tombol-tampilkan-awal">
+<h1>Tombol tampilkan awal<a class="headerlink" href="#tombol-tampilkan-awal" title="Link to this heading">#</a></h1>
+<p>def tampilkan():
+global current_points
+pts = ambil_titik()
+if pts:
+current_points = pts
+gambar_titik(current_points, “Objek Awal”)</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="transformasi-refleksi-sumbu-y">
+<h1>Transformasi refleksi sumbu Y<a class="headerlink" href="#transformasi-refleksi-sumbu-y" title="Link to this heading">#</a></h1>
+<p>def refleksi_y():
+global current_points
+if not current_points:
+return</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># Refleksi Y: (x, y) -&gt; (-x, y)
+reflected = [(-x, y) for x, y in current_points]
+current_points = reflected
+
+# Update input field
+for i in range(4):
+    entries[i][0].delete(0, tk.END)
+    entries[i][0].insert(0, str(reflected[i][0]))
+    entries[i][1].delete(0, tk.END)
+    entries[i][1].insert(0, str(reflected[i][1]))
+
+gambar_titik(current_points, &quot;Refleksi terhadap sumbu Y&quot;)
+</pre></div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="update-manual">
+<h1>Update manual<a class="headerlink" href="#update-manual" title="Link to this heading">#</a></h1>
+<p>def update():
+global current_points
+pts = ambil_titik()
+if pts:
+current_points = pts
+gambar_titik(current_points, “Objek Diupdate”)</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="gui-utama">
+<h1>GUI utama<a class="headerlink" href="#gui-utama" title="Link to this heading">#</a></h1>
+<p>root = <a class="reference external" href="http://tk.Tk">tk.Tk</a>()
+root.title(“Transformasi Refleksi Y”)</p>
+<p>entries = []
+current_points = []</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="input-titik">
+<h1>Input titik<a class="headerlink" href="#input-titik" title="Link to this heading">#</a></h1>
+<p>for i in range(4):
+frame = tk.Frame(root)
+frame.pack()</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>tk.Label(frame, text=f&quot;Titik {i+1} (x, y): &quot;).pack(side=tk.LEFT)
+
+entry_x = tk.Entry(frame, width=5)
+entry_x.pack(side=tk.LEFT)
+
+entry_y = tk.Entry(frame, width=5)
+entry_y.pack(side=tk.LEFT)
+
+entries.append((entry_x, entry_y))
+</pre></div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="tombol">
+<h1>Tombol<a class="headerlink" href="#tombol" title="Link to this heading">#</a></h1>
+<p>tk.Button(root, text=”Tampilkan Objek”, command=tampilkan).pack(pady=5)
+tk.Button(root, text=”Refleksi Sumbu Y”, command=refleksi_y).pack(pady=5)
+tk.Button(root, text=”Update Koordinat”, command=update).pack(pady=5)</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="setup-matplotlib">
+<h1>Setup matplotlib<a class="headerlink" href="#setup-matplotlib" title="Link to this heading">#</a></h1>
+<p>plt.ion()
+fig = plt.figure()</p>
+<p>root.mainloop()</p>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
     }
-  </script>
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
 
               
               
@@ -363,12 +548,56 @@
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="materi2.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">A. Determinan</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="notebooks.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Content with notebooks</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Fungsi untuk menggambar objek</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#ambil-input-dari-user">Ambil input dari user</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tombol-tampilkan-awal">Tombol tampilkan awal</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#transformasi-refleksi-sumbu-y">Transformasi refleksi sumbu Y</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#update-manual">Update manual</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#gui-utama">GUI utama</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#input-titik">Input titik</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tombol">Tombol</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-matplotlib">Setup matplotlib</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
               
             
           </div>
