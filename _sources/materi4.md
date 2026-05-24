@@ -1,7 +1,7 @@
 # Face Recognition Eigenface + SVD
 **Google Colab | Penjelasan Lengkap Kode & Output**
 
-> 🔗 **Link Notebook Colab:** [Buka di Google Colab](https://colab.research.google.com/drive/1Qt1-ZFvRxl3HOGAwjQqDSRYpF7mPO88A?usp=sharing)
+> 🔗 **Link Notebook Colab:** [Buka di Google Colab](https://colab.research.google.com/drive/1KRwEGOYUpLwzKxJlV1UcU4HWrxiEc63V?usp=sharing)
 
 ---
 
