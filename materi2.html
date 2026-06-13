@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>A. Determinan &#8212; My sample book</title>
+    <title>Apa itu Persamaan Linier? &#8212; My sample book</title>
   
   
   
@@ -60,13 +60,11 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'materi2';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Content with notebooks" href="notebooks.html" />
-    <link rel="prev" title="1. SPL (Sistem Persamaan Linear)" href="materi1.html" />
+    <link rel="next" title="1. SPL (Sistem Persamaan Linear)" href="MATERI3.html" />
+    <link rel="prev" title="materi 1" href="materi1.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -166,22 +164,30 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="intro.html">
-                    Muhammad Rain Maulana Momole 25-061
+                    Nama = Muhammad Rain Maulana Momole
                 </a>
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="materi1.html">1. SPL (Sistem Persamaan Linear)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="materi1.html">materi 1</a></li>
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Apa itu Persamaan Linier?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MATERI3.html">1. SPL (Sistem Persamaan Linear)</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="uts.html">uts</a></li>
 
 
 
 
 
 
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">A. Determinan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="materi4.html">A. Determinan</a></li>
 
+<li class="toctree-l1"><a class="reference internal" href="refleksi.html">Laporan Refleksi Geometri</a></li>
+<li class="toctree-l1"><a class="reference internal" href="materi7.html">Dekomposisi QR dan Nilai Eigen</a></li>
+<li class="toctree-l1"><a class="reference internal" href="materi8.html">Face Recognition Eigenface + SVD</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks.html">Content with notebooks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="markdown-notebooks.html">Notebooks with MyST Markdown</a></li>
 </ul>
 
     </div>
@@ -364,7 +370,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>A. Determinan</h1>
+    <h1>Apa itu Persamaan Linier?</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -374,20 +380,9 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">A. Determinan</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">1</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">3</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh-1">Contoh 1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh-2">Contoh 2</a></li>
 </ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#b-invers-matriks">B. Invers Matriks</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">4</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">5</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">6</a></li>
-</ul>
-</li>
-</ul>
-
             </nav>
         </div>
     </div>
@@ -398,122 +393,26 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="a-determinan">
-<h1>A. Determinan<a class="headerlink" href="#a-determinan" title="Link to this heading">#</a></h1>
-<section id="id1">
-<h2>1<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
-<p>Matriks 2x2, pakai rumus cepat ad - bc</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-A = \begin{bmatrix} -7 &amp; -5 \\ 1 &amp; 4 \end{bmatrix}
-\end{split}\]</div>
-<div class="math notranslate nohighlight">
-\[
-\det(A) = (-7)(4) - (-5)(1) = -28 + 5 = -23
-\]</div>
+  <section class="tex2jax_ignore mathjax_ignore" id="apa-itu-persamaan-linier">
+<h1>Apa itu Persamaan Linier?<a class="headerlink" href="#apa-itu-persamaan-linier" title="Link to this heading">#</a></h1>
+<p>Persamaan aljabar yang variabelnya berpangkat tertinggi satu, dan grafiknya berbentuk garis lurus.</p>
+<p>Persamaan ini menghubungkan satu atau lebih variabel independen untuk membentuk fungsi linear.</p>
+<p>Umumnya terdiri dari koefisien, variabel, dan konstanta, serta sering digunakan untuk memodelkan hubungan fungsional yang konstan.</p>
+<section id="contoh-1">
+<h2>Contoh 1<a class="headerlink" href="#contoh-1" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>g1 : y = 2x + 4</p></li>
+<li><p>g2 : y = −x + 6</p></li>
+</ul>
+<p><img alt="alt text" src="image.png" /></p>
 </section>
-<hr class="docutils" />
-<section id="id2">
-<h2>2<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
-<p>Ekspansi baris pertama</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-A = \begin{bmatrix} 0 &amp; 2 &amp; -3 \\ 1 &amp; -2 &amp; -1 \\ 0 &amp; 0 &amp; 1 \end{bmatrix}
-\end{split}\]</div>
-<p>Baris pertama: [0, 2, -3]</p>
-<div class="math notranslate nohighlight">
-\[
-\det(A) = 0 - 2(1 \cdot 1 - (-1)\cdot0) + (-3)(1\cdot0 - (-2)\cdot0)
-\]</div>
-<div class="math notranslate nohighlight">
-\[
-= -2(1) + (-3)(0) = -2
-\]</div>
-</section>
-<hr class="docutils" />
-<section id="id3">
-<h2>3<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
-<p>Baris saling bergantung</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-A = \begin{bmatrix}
-1 &amp; -3 &amp; 1 &amp; 1 \\
--3 &amp; 1 &amp; 1 &amp; 1 \\
-1 &amp; 1 &amp; -3 &amp; 1 \\
-1 &amp; 1 &amp; 1 &amp; -3
-\end{bmatrix}
-\end{split}\]</div>
-<p>Terlihat pola simetris dan tidak independen</p>
-<div class="math notranslate nohighlight">
-\[
-\det(A) = 0
-\]</div>
-<hr class="docutils" />
-</section>
-</section>
-<section id="b-invers-matriks">
-<h1>B. Invers Matriks<a class="headerlink" href="#b-invers-matriks" title="Link to this heading">#</a></h1>
-<p>Syarat: determinan tidak boleh 0</p>
-<hr class="docutils" />
-<section id="id4">
-<h2>4<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
-<p>Gunakan rumus invers 2x2</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-A = \begin{bmatrix} -7 &amp; -5 \\ 1 &amp; 4 \end{bmatrix}
-\end{split}\]</div>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-A^{-1} = \frac{1}{-23}
-\begin{bmatrix}
-4 &amp; 5 \\
--1 &amp; -7
-\end{bmatrix}
-\end{split}\]</div>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-=
-\begin{bmatrix}
--4/23 &amp; -5/23 \\
-1/23 &amp; 7/23
-\end{bmatrix}
-\end{split}\]</div>
-</section>
-<hr class="docutils" />
-<section id="id5">
-<h2>5<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
-<p>Determinan tidak nol, jadi bisa diinvers</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-A = \begin{bmatrix} 0 &amp; 2 &amp; -3 \\ 1 &amp; -2 &amp; -1 \\ 0 &amp; 0 &amp; 1 \end{bmatrix}
-\end{split}\]</div>
-<div class="math notranslate nohighlight">
-\[
-\det(A) = -2
-\]</div>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-A^{-1} =
-\begin{bmatrix}
--1 &amp; -1 &amp; -5/2 \\
--1/2 &amp; 0 &amp; -3/2 \\
-0 &amp; 0 &amp; 1
-\end{bmatrix}
-\end{split}\]</div>
-</section>
-<hr class="docutils" />
-<section id="id6">
-<h2>6<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
-<p>Determinan nol</p>
-<div class="math notranslate nohighlight">
-\[
-\det(A) = 0
-\]</div>
-<p>Tidak memenuhi syarat invers</p>
-<div class="math notranslate nohighlight">
-\[
-\text{Matriks tidak memiliki invers}
-\]</div>
+<section id="contoh-2">
+<h2>Contoh 2<a class="headerlink" href="#contoh-2" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>g1 : y = x + 3</p></li>
+<li><p>g2 : x = y − 5</p></li>
+</ul>
+<p><img alt="alt text" src="image-1.png" /></p>
 </section>
 </section>
 
@@ -553,15 +452,15 @@ A^{-1} =
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">1. SPL (Sistem Persamaan Linear)</p>
+        <p class="prev-next-title">materi 1</p>
       </div>
     </a>
     <a class="right-next"
-       href="notebooks.html"
+       href="MATERI3.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Content with notebooks</p>
+        <p class="prev-next-title">1. SPL (Sistem Persamaan Linear)</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -583,20 +482,9 @@ A^{-1} =
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">A. Determinan</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">1</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">3</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh-1">Contoh 1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh-2">Contoh 2</a></li>
 </ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#b-invers-matriks">B. Invers Matriks</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">4</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">5</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">6</a></li>
-</ul>
-</li>
-</ul>
-
   </nav></div>
 
 </div></div>

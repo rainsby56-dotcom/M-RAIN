@@ -1,0 +1,1014 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Face Recognition Eigenface + SVD &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'materi8';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Content with notebooks" href="notebooks.html" />
+    <link rel="prev" title="Dekomposisi QR dan Nilai Eigen" href="materi7.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/unnamed.jpg" class="logo__image only-light" alt="My sample book - Home"/>
+    <img src="_static/unnamed.jpg" class="logo__image only-dark pst-js-only" alt="My sample book - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Nama = Muhammad Rain Maulana Momole
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="materi1.html">materi 1</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="materi2.html">Apa itu Persamaan Linier?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MATERI3.html">1. SPL (Sistem Persamaan Linear)</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="uts.html">uts</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="materi4.html">A. Determinan</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="refleksi.html">Laporan Refleksi Geometri</a></li>
+<li class="toctree-l1"><a class="reference internal" href="materi7.html">Dekomposisi QR dan Nilai Eigen</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Face Recognition Eigenface + SVD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks.html">Content with notebooks</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fmateri8.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/materi8.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Face Recognition Eigenface + SVD</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#struktur-dataset">📁 Struktur Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-import-library">⚙️ Install &amp; Import Library</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tahap-1-load-preprocessing-dataset">📊 Tahap 1 — Load &amp; Preprocessing Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tahap-2-hitung-mean-face-wajah-rata-rata">📊 Tahap 2 — Hitung Mean Face (Wajah Rata-rata)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tahap-3-hitung-matrix-a-data-terpusat-centered">📊 Tahap 3 — Hitung Matrix A (Data Terpusat / Centered)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tahap-4-svd-singular-value-decomposition">🔢 Tahap 4 — SVD (Singular Value Decomposition)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#apa-itu-svd">Apa itu SVD?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bagaimana-svd-dihitung">Bagaimana SVD Dihitung?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-setiap-output-matrix">Penjelasan Setiap Output Matrix:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-u-6-6">🔵 Matrix U (6 × 6)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-sigma-6-6">🟡 Matrix Sigma / Σ (6 × 6)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-vt-6-10-000">🟢 Matrix VT (6 × 10.000)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tahap-5-eigenface-visualisasi">🖼️ Tahap 5 — Eigenface (Visualisasi)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tahap-6-proyeksi-training-ke-eigenspace">📐 Tahap 6 — Proyeksi Training ke Eigenspace</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mengapa-u-dan-bukan-sesuatu-yang-lain">Mengapa U × Σ dan bukan sesuatu yang lain?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tahap-7-uji-gambar-baru-recognition">🧪 Tahap 7 — Uji Gambar Baru (Recognition)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#alur-pengenalan-gambar-baru">Alur pengenalan gambar baru:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mengapa-menggunakan-vt-t-untuk-proyeksi">Mengapa menggunakan VT.T untuk proyeksi?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nearest-neighbor-1-nn">Nearest Neighbor (1-NN):</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ringkasan-alur-kerja-lengkap">📌 Ringkasan Alur Kerja Lengkap</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hubungan-svd-dengan-pca-eigenface-method">🧮 Hubungan SVD dengan PCA (Eigenface Method)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#catatan-penting-keterbatasan">📝 Catatan Penting &amp; Keterbatasan</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="face-recognition-eigenface-svd">
+<h1>Face Recognition Eigenface + SVD<a class="headerlink" href="#face-recognition-eigenface-svd" title="Link to this heading">#</a></h1>
+<p><strong>Google Colab | Penjelasan Lengkap Kode &amp; Output</strong></p>
+<blockquote>
+<div><p>🔗 <strong>Link Notebook Colab:</strong> <a class="reference external" href="https://colab.research.google.com/drive/1KRwEGOYUpLwzKxJlV1UcU4HWrxiEc63V?usp=sharing">Buka di Google Colab</a></p>
+</div></blockquote>
+<hr class="docutils" />
+<section id="struktur-dataset">
+<h2>📁 Struktur Dataset<a class="headerlink" href="#struktur-dataset" title="Link to this heading">#</a></h2>
+<p>Dataset yang digunakan berbentuk file ZIP dengan struktur folder sebagai berikut:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>dataset.zip
+└── dataset/
+    ├── bj habibie/
+    │   ├── 1.jpg
+    │   ├── 2.jpg
+    │   └── 3.jpg
+    └── bungtomo/
+        ├── 1.jpg
+        ├── 2.jpg
+        └── 3.jpg
+</pre></div>
+</div>
+<p>Terdapat <strong>2 orang (kelas)</strong> yaitu <code class="docutils literal notranslate"><span class="pre">bj</span> <span class="pre">habibie</span></code> dan <code class="docutils literal notranslate"><span class="pre">bungtomo</span></code>, masing-masing dengan <strong>3 foto wajah</strong> sebagai data training. Total = <strong>6 gambar</strong>.</p>
+</section>
+<hr class="docutils" />
+<section id="install-import-library">
+<h2>⚙️ Install &amp; Import Library<a class="headerlink" href="#install-import-library" title="Link to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">opencv</span><span class="o">-</span><span class="n">python</span> <span class="n">matplotlib</span> <span class="n">scikit</span><span class="o">-</span><span class="n">learn</span> <span class="o">-</span><span class="n">q</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">zipfile</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">google.colab</span><span class="w"> </span><span class="kn">import</span> <span class="n">files</span>
+</pre></div>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Library</p></th>
+<th class="head"><p>Fungsi</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cv2</span></code></p></td>
+<td><p>Membaca dan memproses gambar (grayscale, resize)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">numpy</span></code></p></td>
+<td><p>Operasi matriks, aritmatika array, dan SVD</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">matplotlib</span></code></p></td>
+<td><p>Visualisasi eigenface dan plot gambar</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">zipfile</span></code></p></td>
+<td><p>Ekstrak dataset dari file ZIP</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">os</span></code></p></td>
+<td><p>Navigasi direktori dan listing file</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="tahap-1-load-preprocessing-dataset">
+<h2>📊 Tahap 1 — Load &amp; Preprocessing Dataset<a class="headerlink" href="#tahap-1-load-preprocessing-dataset" title="Link to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pseudocode alur load dataset</span>
+<span class="k">for</span> <span class="n">setiap_folder_orang</span> <span class="ow">in</span> <span class="n">dataset</span><span class="o">/</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">setiap_gambar</span> <span class="ow">in</span> <span class="n">folder</span><span class="p">:</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">gambar</span><span class="p">,</span> <span class="n">grayscale</span><span class="p">)</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>     <span class="c1"># seragamkan ukuran</span>
+        <span class="n">vektor</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>                <span class="c1"># 100x100 → 10000 elemen</span>
+        <span class="n">data_matrix</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vektor</span><span class="p">)</span>
+        <span class="n">label</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nama_orang</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Setiap gambar melewati 3 langkah preprocessing:</p>
+<ol class="arabic simple">
+<li><p><strong>Grayscale</strong> — warna dihilangkan, hanya intensitas cahaya (0–255) yang dipakai. Ini menyederhanakan data dan mengurangi pengaruh warna kulit/pencahayaan.</p></li>
+<li><p><strong>Resize 100×100</strong> — semua gambar diseragamkan ukurannya agar bisa dibandingkan.</p></li>
+<li><p><strong>Flatten</strong> — matriks 2D (100×100) diubah menjadi vektor 1D sepanjang <strong>10.000 elemen</strong>. Setiap piksel menjadi satu fitur.</p></li>
+</ol>
+<p><strong>Output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Jumlah</span> <span class="n">data</span> <span class="n">training</span> <span class="p">:</span> <span class="mi">6</span>
+<span class="n">Ukuran</span> <span class="n">matrix</span> <span class="n">data</span>   <span class="p">:</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Hasilnya adalah <strong>Matrix Data</strong> berukuran <strong>6 × 10.000</strong> — 6 baris (gambar) dan 10.000 kolom (piksel).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Matrix Data =
+┌─ gambar 1 (bj habibie_1)   → [p1, p2, p3, ..., p10000] ─┐
+│  gambar 2 (bj habibie_2)   → [p1, p2, p3, ..., p10000]   │
+│  gambar 3 (bj habibie_3)   → [p1, p2, p3, ..., p10000]   │
+│  gambar 4 (bungtomo_1) → [p1, p2, p3, ..., p10000]   │
+│  gambar 5 (bungtomo_2) → [p1, p2, p3, ..., p10000]   │
+└─ gambar 6 (bungtomo_3) → [p1, p2, p3, ..., p10000] ─┘
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="tahap-2-hitung-mean-face-wajah-rata-rata">
+<h2>📊 Tahap 2 — Hitung Mean Face (Wajah Rata-rata)<a class="headerlink" href="#tahap-2-hitung-mean-face-wajah-rata-rata" title="Link to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mean_face</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data_matrix</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong><code class="docutils literal notranslate"><span class="pre">axis=0</span></code></strong> artinya rata-rata dihitung <strong>per kolom</strong> (per piksel), bukan per baris. Jadi untuk setiap dari 10.000 piksel, diambil rata-rata nilainya dari ke-6 gambar.</p>
+<p><strong>Secara matematis:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>mean_face[j] = (1/n) × Σ data_matrix[i][j]
+             = rata-rata piksel ke-j dari semua n gambar
+</pre></div>
+</div>
+<p><strong>Output (sebagian):</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mf">121.5</span>   <span class="mf">124.166664</span>   <span class="mf">119.166664</span> <span class="o">...</span> <span class="mf">109.5</span>   <span class="mf">119.333336</span>   <span class="mf">126.166664</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Contoh: piksel pertama bernilai 121.5, artinya rata-rata kecerahan piksel pojok kiri atas dari semua 6 gambar adalah 121.5.</p>
+<blockquote>
+<div><p>💡 <strong>Mengapa perlu Mean Face?</strong> Karena SVD/PCA bekerja pada <strong>variasi data</strong>, bukan nilai absolutnya. Dengan mengurangi mean, kita memindahkan pusat data ke titik nol sehingga SVD bisa menangkap pola perbedaan antar wajah secara akurat.</p>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="tahap-3-hitung-matrix-a-data-terpusat-centered">
+<h2>📊 Tahap 3 — Hitung Matrix A (Data Terpusat / Centered)<a class="headerlink" href="#tahap-3-hitung-matrix-a-data-terpusat-centered" title="Link to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">data_matrix</span> <span class="o">-</span> <span class="n">mean_face</span>
+</pre></div>
+</div>
+<p>Setiap gambar dikurangi mean face:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>A[i] = data_matrix[i] - mean_face
+
+Contoh baris pertama (amba_1):
+data_matrix[0][0] = 152.0   →   A[0][0] = 152.0 - 121.5 = 30.5
+data_matrix[0][1] = 154.0   →   A[0][1] = 154.0 - 124.17 = 29.83
+...
+</pre></div>
+</div>
+<p><strong>Output Matrix A (6 × 10.000):</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[[</span>  <span class="mf">30.5</span>      <span class="mf">29.833336</span>   <span class="mf">34.833336</span> <span class="o">...</span>  <span class="o">-</span><span class="mf">46.5</span>    <span class="o">-</span><span class="mf">54.333336</span>  <span class="o">-</span><span class="mf">37.166664</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">131.5</span>     <span class="mf">128.83334</span>   <span class="mf">133.83334</span>  <span class="o">...</span>  <span class="o">-</span><span class="mf">13.5</span>    <span class="o">-</span><span class="mf">27.333336</span>  <span class="o">-</span><span class="mf">30.166664</span><span class="p">]</span>
+ <span class="p">[</span> <span class="o">-</span><span class="mf">59.5</span>     <span class="o">-</span><span class="mf">62.166664</span>  <span class="o">-</span><span class="mf">58.166664</span> <span class="o">...</span>   <span class="mf">73.5</span>     <span class="mf">88.666664</span>   <span class="mf">88.833336</span><span class="p">]</span>
+ <span class="p">[</span>  <span class="mf">20.5</span>      <span class="mf">15.833336</span>   <span class="mf">20.833336</span> <span class="o">...</span> <span class="o">-</span><span class="mf">102.5</span>    <span class="o">-</span><span class="mf">94.333336</span>  <span class="o">-</span><span class="mf">96.166664</span><span class="p">]</span>
+ <span class="p">[</span> <span class="o">-</span><span class="mf">52.5</span>     <span class="o">-</span><span class="mf">51.166664</span>  <span class="o">-</span><span class="mf">40.166664</span> <span class="o">...</span>   <span class="mf">53.5</span>     <span class="mf">60.666664</span>   <span class="mf">54.833336</span><span class="p">]</span>
+ <span class="p">[</span> <span class="o">-</span><span class="mf">70.5</span>     <span class="o">-</span><span class="mf">61.166664</span>  <span class="o">-</span><span class="mf">91.166664</span> <span class="o">...</span>   <span class="mf">35.5</span>     <span class="mf">26.666664</span>   <span class="mf">19.833336</span><span class="p">]]</span>
+</pre></div>
+</div>
+<p>Nilai <strong>positif</strong> berarti piksel itu lebih terang dari rata-rata, nilai <strong>negatif</strong> berarti lebih gelap. Ini merepresentasikan “seberapa beda” tiap wajah dari wajah rata-rata.</p>
+</section>
+<hr class="docutils" />
+<section id="tahap-4-svd-singular-value-decomposition">
+<h2>🔢 Tahap 4 — SVD (Singular Value Decomposition)<a class="headerlink" href="#tahap-4-svd-singular-value-decomposition" title="Link to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">full_matrices</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="apa-itu-svd">
+<h3>Apa itu SVD?<a class="headerlink" href="#apa-itu-svd" title="Link to this heading">#</a></h3>
+<p>SVD adalah teknik faktorisasi matriks yang memecah sebuah matriks <strong>A</strong> menjadi tiga matriks:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>A  =  U  ×  Σ  ×  Vᵀ
+</pre></div>
+</div>
+<p>Analoginya seperti memfaktorkan angka: <code class="docutils literal notranslate"><span class="pre">12</span> <span class="pre">=</span> <span class="pre">4</span> <span class="pre">×</span> <span class="pre">3</span></code>, tapi untuk matriks.</p>
+</section>
+<section id="bagaimana-svd-dihitung">
+<h3>Bagaimana SVD Dihitung?<a class="headerlink" href="#bagaimana-svd-dihitung" title="Link to this heading">#</a></h3>
+<p>Proses SVD secara konseptual dilakukan melalui dua langkah utama:</p>
+<p><strong>Langkah 1 — Hitung AᵀA dan AAᵀ</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>AᵀA  →  matriks berukuran (10000 × 10000)
+AAᵀ  →  matriks berukuran (6 × 6)   ← ini yang lebih efisien dihitung
+</pre></div>
+</div>
+<p>Karena A berukuran 6×10000, numpy otomatis memilih strategi yang efisien. Parameter <code class="docutils literal notranslate"><span class="pre">full_matrices=False</span></code> memastikan ukuran output diperkecil (ekonomis/thin SVD).</p>
+<p><strong>Langkah 2 — Cari Eigenvalue &amp; Eigenvector</strong></p>
+<ul class="simple">
+<li><p><strong>Eigenvalue</strong> dari AAᵀ → akar kuadratnya = <strong>nilai singular (S)</strong></p></li>
+<li><p><strong>Eigenvector</strong> dari AAᵀ → kolom-kolom <strong>U</strong></p></li>
+<li><p><strong>Eigenvector</strong> dari AᵀA → baris-baris <strong>Vᵀ</strong></p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>eigenvalue(AAᵀ) = λ₁, λ₂, ..., λ₆
+nilai singular  = σᵢ = √λᵢ
+</pre></div>
+</div>
+</section>
+<section id="penjelasan-setiap-output-matrix">
+<h3>Penjelasan Setiap Output Matrix:<a class="headerlink" href="#penjelasan-setiap-output-matrix" title="Link to this heading">#</a></h3>
+</section>
+<section id="matrix-u-6-6">
+<h3>🔵 Matrix U (6 × 6)<a class="headerlink" href="#matrix-u-6-6" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Ukuran</span> <span class="n">U</span> <span class="p">:</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+
+<span class="p">[[</span><span class="o">-</span><span class="mf">0.13280219</span>   <span class="mf">0.00657479</span>   <span class="mf">0.17732333</span>   <span class="mf">0.39236313</span>  <span class="o">-</span><span class="mf">0.79389</span>     <span class="mf">0.40824828</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">0.8464758</span>    <span class="mf">0.12745075</span>  <span class="o">-</span><span class="mf">0.01840555</span>  <span class="o">-</span><span class="mf">0.18440233</span>   <span class="mf">0.25734302</span>  <span class="mf">0.40824828</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.13314712</span>  <span class="o">-</span><span class="mf">0.7004411</span>   <span class="o">-</span><span class="mf">0.5435097</span>   <span class="o">-</span><span class="mf">0.17035691</span>  <span class="o">-</span><span class="mf">0.02373067</span>  <span class="mf">0.40824828</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.20740968</span>  <span class="o">-</span><span class="mf">0.01993572</span>   <span class="mf">0.14427534</span>   <span class="mf">0.68600833</span>   <span class="mf">0.54634637</span>  <span class="mf">0.4082483</span> <span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.3429516</span>    <span class="mf">0.6936716</span>   <span class="o">-</span><span class="mf">0.43801886</span>  <span class="o">-</span><span class="mf">0.2027295</span>   <span class="o">-</span><span class="mf">0.03971816</span>  <span class="mf">0.40824828</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.29576957</span>  <span class="o">-</span><span class="mf">0.10732028</span>   <span class="mf">0.6783354</span>   <span class="o">-</span><span class="mf">0.5208827</span>    <span class="mf">0.05364941</span>  <span class="mf">0.4082483</span> <span class="p">]]</span>
+</pre></div>
+</div>
+<p><strong>U adalah matriks ortonormal</strong> berukuran 6×6. Setiap baris mewakili satu gambar training, dan setiap kolom adalah satu <strong>komponen/dimensi</strong> di ruang eigenface.</p>
+<ul class="simple">
+<li><p>Setiap <strong>baris</strong> = koordinat satu wajah di ruang eigenface baru</p></li>
+<li><p>Setiap <strong>kolom</strong> = arah (basis vektor) dari satu komponen utama</p></li>
+<li><p>Nilai-nilainya adalah <strong>bobot</strong> seberapa besar kontribusi tiap eigenface terhadap tiap gambar</p></li>
+<li><p>Kolom terakhir semua bernilai ≈ 0.408 = 1/√6, ini karena komponen ke-6 punya sigma ≈ 0 (semua gambar “sama” di dimensi itu)</p></li>
+</ul>
+<blockquote>
+<div><p>💡 U bersifat <strong>ortonormal</strong>: setiap kolom saling tegak lurus (dot product = 0) dan panjangnya = 1. Ini menjamin transformasi tidak mendistorsi jarak antar wajah.</p>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="matrix-sigma-6-6">
+<h3>🟡 Matrix Sigma / Σ (6 × 6)<a class="headerlink" href="#matrix-sigma-6-6" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Ukuran</span> <span class="n">SIGMA</span> <span class="p">:</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+
+<span class="p">[[</span><span class="mf">1.2002574e+04</span>  <span class="mi">0</span>             <span class="mi">0</span>             <span class="mi">0</span>             <span class="mi">0</span>             <span class="mi">0</span>          <span class="p">]</span>
+ <span class="p">[</span><span class="mi">0</span>              <span class="mf">8.2377520e+03</span> <span class="mi">0</span>             <span class="mi">0</span>             <span class="mi">0</span>             <span class="mi">0</span>          <span class="p">]</span>
+ <span class="p">[</span><span class="mi">0</span>              <span class="mi">0</span>             <span class="mf">5.9307148e+03</span> <span class="mi">0</span>             <span class="mi">0</span>             <span class="mi">0</span>          <span class="p">]</span>
+ <span class="p">[</span><span class="mi">0</span>              <span class="mi">0</span>             <span class="mi">0</span>             <span class="mf">4.5860278e+03</span> <span class="mi">0</span>             <span class="mi">0</span>          <span class="p">]</span>
+ <span class="p">[</span><span class="mi">0</span>              <span class="mi">0</span>             <span class="mi">0</span>             <span class="mi">0</span>             <span class="mf">4.2169961e+03</span> <span class="mi">0</span>          <span class="p">]</span>
+ <span class="p">[</span><span class="mi">0</span>              <span class="mi">0</span>             <span class="mi">0</span>             <span class="mi">0</span>             <span class="mi">0</span>             <span class="mf">8.1560726e-04</span><span class="p">]]</span>
+</pre></div>
+</div>
+<p><strong>Sigma adalah matriks diagonal</strong> — hanya diagonal utamanya yang berisi nilai, sisanya nol.</p>
+<p>Nilai-nilai di diagonal disebut <strong>Nilai Singular</strong> dan selalu diurutkan <strong>dari terbesar ke terkecil</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>σ₁ = 12002.574  →  &quot;energi&quot; komponen 1 = σ₁² = 144,061,788
+σ₂ =  8237.752  →  &quot;energi&quot; komponen 2 = σ₂² =  67,860,668
+σ₃ =  5930.714  →  &quot;energi&quot; komponen 3 = σ₃² =  35,173,364
+σ₄ =  4586.028  →  &quot;energi&quot; komponen 4 = σ₄² =  21,031,653
+σ₅ =  4216.997  →  &quot;energi&quot; komponen 5 = σ₅² =  17,783,044
+σ₆ =     0.001  →  &quot;energi&quot; komponen 6 ≈ 0    (noise)
+</pre></div>
+</div>
+<p><strong>Cara membacanya:</strong></p>
+<ul class="simple">
+<li><p>σ₁ = 12002 artinya komponen pertama menyimpan variasi terbesar antar wajah</p></li>
+<li><p>σ₆ ≈ 0.0008 artinya komponen ke-6 hampir tidak menyimpan informasi apapun</p></li>
+<li><p>Persentase informasi komponen 1: <code class="docutils literal notranslate"><span class="pre">σ₁²</span> <span class="pre">/</span> <span class="pre">Σσᵢ²</span></code> ≈ <strong>49.6%</strong> dari total variasi</p></li>
+</ul>
+<blockquote>
+<div><p>💡 <strong>Mengapa Sigma ke-6 ≈ 0?</strong> Karena kita punya 6 gambar dan 10.000 dimensi. Secara matematis, rank matriks A maksimal = min(6, 10000) = 6. Tapi karena 6 gambar dari 2 orang yang relatif mirip strukturnya, komponen ke-6 hampir linier dengan yang lain, sehingga nilainya mendekati nol.</p>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="matrix-vt-6-10-000">
+<h3>🟢 Matrix VT (6 × 10.000)<a class="headerlink" href="#matrix-vt-6-10-000" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Ukuran</span> <span class="n">VT</span> <span class="p">:</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
+
+<span class="p">[[</span><span class="o">-</span><span class="mf">1.3154604e-02</span>  <span class="o">-</span><span class="mf">1.2801295e-02</span>  <span class="o">-</span><span class="mf">1.3503426e-02</span> <span class="o">...</span>   <span class="mf">2.9141479e-03</span>   <span class="mf">4.2728814e-03</span>   <span class="mf">3.9178636e-03</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">3.5660444e-03</span>   <span class="mf">3.7529722e-03</span>   <span class="mf">4.7992137e-03</span> <span class="o">...</span>  <span class="o">-</span><span class="mf">2.2049418e-03</span>  <span class="o">-</span><span class="mf">3.0160157e-03</span>  <span class="o">-</span><span class="mf">3.4580657e-03</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">2.2691775e-03</span>   <span class="mf">3.3574183e-03</span>  <span class="o">-</span><span class="mf">9.9725812e-04</span> <span class="o">...</span>  <span class="o">-</span><span class="mf">1.0468611e-02</span>  <span class="o">-</span><span class="mf">1.3390772e-02</span>  <span class="o">-</span><span class="mf">1.3279330e-02</span><span class="p">]</span>
+ <span class="o">...</span>
+</pre></div>
+</div>
+<p>Setiap <strong>baris</strong> dari VT adalah satu <strong>Eigenface</strong> — vektor sepanjang 10.000 elemen yang bisa dibentuk ulang menjadi gambar 100×100.</p>
+<ul class="simple">
+<li><p>Baris 1 VT = Eigenface 1 (pola yang paling banyak menjelaskan variasi)</p></li>
+<li><p>Baris 2 VT = Eigenface 2 (pola kedua terpenting)</p></li>
+<li><p>…dst</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="tahap-5-eigenface-visualisasi">
+<h2>🖼️ Tahap 5 — Eigenface (Visualisasi)<a class="headerlink" href="#tahap-5-eigenface-visualisasi" title="Link to this heading">#</a></h2>
+<p><strong>Jumlah Eigenface: 6</strong> (sama dengan jumlah data training karena rank matrix = 6)</p>
+<p>Setiap baris VT di-<em>reshape</em> kembali ke 100×100 piksel dan divisualisasikan:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_eigenfaces</span><span class="p">):</span>
+    <span class="n">eigenface_img</span> <span class="o">=</span> <span class="n">VT</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">eigenface_img</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Eigenface 1 → menangkap ~49.6% variasi  (kontras gelap-terang wajah)
+Eigenface 2 → menangkap pola berikutnya (bayangan samping, dll)
+Eigenface 3 → pola lebih halus
+Eigenface 4 → pola lebih halus lagi
+Eigenface 5 → pola minor
+Eigenface 6 → NOISE (sigma ≈ 0, gambar tampak seperti static TV)
+</pre></div>
+</div>
+<blockquote>
+<div><p>🔍 Eigenface 1–5 terlihat seperti “wajah hantu” — samar tapi ada struktur wajah. Eigenface 6 tampak acak/noise karena komponen ini tidak membawa informasi bermakna.</p>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="tahap-6-proyeksi-training-ke-eigenspace">
+<h2>📐 Tahap 6 — Proyeksi Training ke Eigenspace<a class="headerlink" href="#tahap-6-proyeksi-training-ke-eigenspace" title="Link to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">projected_training</span> <span class="o">=</span> <span class="n">U</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">S</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="mengapa-u-dan-bukan-sesuatu-yang-lain">
+<h3>Mengapa U × Σ dan bukan sesuatu yang lain?<a class="headerlink" href="#mengapa-u-dan-bukan-sesuatu-yang-lain" title="Link to this heading">#</a></h3>
+<p>Ingat bahwa: <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">=</span> <span class="pre">U</span> <span class="pre">×</span> <span class="pre">Σ</span> <span class="pre">×</span> <span class="pre">Vᵀ</span></code></p>
+<p>Jika kita ingin mengekspresikan setiap wajah dalam <strong>koordinat eigenface</strong>, caranya adalah memproyeksikan A ke basis Vᵀ:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>A × V  =  U × Σ × Vᵀ × V
+        =  U × Σ × I       (karena VᵀV = I, ortonormal)
+        =  U × Σ
+</pre></div>
+</div>
+<p>Jadi <code class="docutils literal notranslate"><span class="pre">projected_training</span> <span class="pre">=</span> <span class="pre">U</span> <span class="pre">&#64;</span> <span class="pre">np.diag(S)</span></code> adalah cara singkat mendapatkan koordinat setiap wajah di ruang eigenface <strong>tanpa perlu mengalikan A dengan VT secara eksplisit</strong>.</p>
+<p><strong>Output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Ukuran</span> <span class="n">projected</span> <span class="n">training</span> <span class="p">:</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+
+<span class="p">[[</span><span class="o">-</span><span class="mf">1593.97</span>    <span class="mf">54.16</span>   <span class="mf">1051.65</span>   <span class="mf">1799.39</span>  <span class="o">-</span><span class="mf">3347.83</span>   <span class="mf">3.15e-04</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">10159.89</span>  <span class="mf">1049.90</span>  <span class="o">-</span><span class="mf">1091.58</span>   <span class="o">-</span><span class="mf">845.67</span>   <span class="mf">1085.21</span>   <span class="mf">3.82e-04</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">1598.11</span>  <span class="o">-</span><span class="mf">5770.60</span>  <span class="o">-</span><span class="mf">3223.40</span>   <span class="o">-</span><span class="mf">781.26</span>  <span class="o">-</span><span class="mf">100.07</span>   <span class="mf">3.26e-04</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">2489.45</span>   <span class="o">-</span><span class="mf">164.23</span>    <span class="mf">855.56</span>   <span class="mf">3146.05</span>   <span class="mf">2303.94</span>   <span class="mf">3.49e-04</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">4116.30</span>   <span class="mf">5714.29</span>  <span class="o">-</span><span class="mf">2597.76</span>   <span class="o">-</span><span class="mf">929.72</span>   <span class="o">-</span><span class="mf">167.49</span>   <span class="mf">3.18e-04</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">3549.99</span>   <span class="o">-</span><span class="mf">884.08</span>   <span class="mf">4023.01</span>  <span class="o">-</span><span class="mf">2388.78</span>    <span class="mf">226.24</span>   <span class="mf">3.28e-04</span><span class="p">]]</span>
+</pre></div>
+</div>
+<p>Dari <strong>10.000 dimensi</strong> (piksel) → dikompres menjadi <strong>6 dimensi</strong> (koordinat eigenface). Inilah representasi fitur yang akan digunakan untuk pengenalan wajah.</p>
+<p>Setiap baris = satu wajah training, dinyatakan sebagai 6 angka yang menjadi “sidik jarinya” di ruang eigenface.</p>
+<blockquote>
+<div><p>💡 Kolom ke-6 semua bernilai sangat kecil (~3e-04) karena σ₆ ≈ 0, artinya dimensi ke-6 tidak membedakan wajah satu sama lain dan aman untuk diabaikan.</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="tahap-7-uji-gambar-baru-recognition">
+<h2>🧪 Tahap 7 — Uji Gambar Baru (Recognition)<a class="headerlink" href="#tahap-7-uji-gambar-baru-recognition" title="Link to this heading">#</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Upload</span> <span class="n">gambar</span> <span class="n">wajah</span> <span class="n">test</span><span class="p">:</span> <span class="n">bungtomo</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">jpg</span>
+</pre></div>
+</div>
+<section id="alur-pengenalan-gambar-baru">
+<h3>Alur pengenalan gambar baru:<a class="headerlink" href="#alur-pengenalan-gambar-baru" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Preprocessing gambar baru (sama seperti training)</span>
+<span class="n">test_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s1">&#39;bungtomo (1).jpg&#39;</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">IMREAD_GRAYSCALE</span><span class="p">)</span>
+<span class="n">test_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">test_img</span><span class="p">,</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+<span class="n">test_vec</span> <span class="o">=</span> <span class="n">test_img</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>        <span class="c1"># shape: (10000,)</span>
+
+<span class="c1"># 2. Kurangi mean face</span>
+<span class="n">test_centered</span> <span class="o">=</span> <span class="n">test_vec</span> <span class="o">-</span> <span class="n">mean_face</span>               <span class="c1"># shape: (10000,)</span>
+
+<span class="c1"># 3. Proyeksi ke eigenspace menggunakan VT</span>
+<span class="n">test_projected</span> <span class="o">=</span> <span class="n">test_centered</span> <span class="o">@</span> <span class="n">VT</span><span class="o">.</span><span class="n">T</span>              <span class="c1"># shape: (6,)</span>
+
+<span class="c1"># 4. Hitung jarak ke setiap wajah training</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">projected_training</span><span class="p">)):</span>
+    <span class="n">jarak</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">test_projected</span> <span class="o">-</span> <span class="n">projected_training</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+<span class="c1"># 5. Ambil label dari jarak terkecil (Nearest Neighbor)</span>
+<span class="n">hasil</span> <span class="o">=</span> <span class="n">label</span><span class="p">[</span><span class="n">argmin</span><span class="p">(</span><span class="n">jarak</span><span class="p">)]</span>
+</pre></div>
+</div>
+</section>
+<section id="mengapa-menggunakan-vt-t-untuk-proyeksi">
+<h3>Mengapa menggunakan VT.T untuk proyeksi?<a class="headerlink" href="#mengapa-menggunakan-vt-t-untuk-proyeksi" title="Link to this heading">#</a></h3>
+<p>Karena VT (baris = eigenface) adalah basis ruang eigenface. Proyeksi vektor <code class="docutils literal notranslate"><span class="pre">x</span></code> ke basis ini:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>koordinat = x · Vᵀᵀ = x · V
+</pre></div>
+</div>
+<p>Ini setara dengan “seberapa mirip gambar baru dengan tiap eigenface?”</p>
+</section>
+<section id="nearest-neighbor-1-nn">
+<h3>Nearest Neighbor (1-NN):<a class="headerlink" href="#nearest-neighbor-1-nn" title="Link to this heading">#</a></h3>
+<p>Setelah proyeksi, gambar baru memiliki koordinat 6D. Kemudian dihitung <strong>jarak Euclidean</strong> ke semua 6 gambar training:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>jarak = √Σ(test_projected[i] - training_projected[i])²
+</pre></div>
+</div>
+<p>Gambar training dengan jarak terkecil = identitas yang dikenali.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="ringkasan-alur-kerja-lengkap">
+<h2>📌 Ringkasan Alur Kerja Lengkap<a class="headerlink" href="#ringkasan-alur-kerja-lengkap" title="Link to this heading">#</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>┌────────────────────────────────────────────────────┐
+│  TRAINING PHASE                                    │
+│                                                    │
+│  Gambar (6 foto)                                   │
+│       ↓ grayscale + resize(100×100) + flatten      │
+│  Matrix Data  →  shape: (6, 10000)                 │
+│       ↓ np.mean(axis=0)                            │
+│  Mean Face    →  shape: (10000,)                   │
+│       ↓ data_matrix - mean_face                    │
+│  Matrix A     →  shape: (6, 10000)                 │
+│       ↓ np.linalg.svd(A, full_matrices=False)      │
+│  U (6×6)  +  Σ (6×6)  +  VT (6×10000)             │
+│       ↓                                            │
+│  Eigenface = baris VT  →  visualisasi              │
+│       ↓ U @ diag(S)                                │
+│  Projected Training   →  shape: (6, 6)             │
+└────────────────────────────────────────────────────┘
+
+┌────────────────────────────────────────────────────┐
+│  TESTING PHASE                                     │
+│                                                    │
+│  Gambar Baru                                       │
+│       ↓ grayscale + resize + flatten               │
+│  test_vec  →  shape: (10000,)                      │
+│       ↓ - mean_face                                │
+│  test_centered  →  shape: (10000,)                 │
+│       ↓ @ VT.T                                     │
+│  test_projected →  shape: (6,)                     │
+│       ↓ Euclidean distance ke projected_training   │
+│  Hasil = label dengan jarak terkecil               │
+└────────────────────────────────────────────────────┘
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="hubungan-svd-dengan-pca-eigenface-method">
+<h2>🧮 Hubungan SVD dengan PCA (Eigenface Method)<a class="headerlink" href="#hubungan-svd-dengan-pca-eigenface-method" title="Link to this heading">#</a></h2>
+<p>Metode eigenface pada dasarnya adalah <strong>PCA (Principal Component Analysis)</strong> yang diimplementasikan lewat SVD. Hubungannya:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Konsep PCA</p></th>
+<th class="head"><p>Padanannya di SVD</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Covariance matrix</p></td>
+<td><p>AᵀA (atau AAᵀ untuk efisiensi)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Eigenvector dari covariance</p></td>
+<td><p>Baris-baris VT</p></td>
+</tr>
+<tr class="row-even"><td><p>Eigenvalue</p></td>
+<td><p>σᵢ² (kuadrat nilai singular)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Principal Components</p></td>
+<td><p>Eigenface (baris VT)</p></td>
+</tr>
+<tr class="row-even"><td><p>Skor PCA</p></td>
+<td><p>Projected training = U × Σ</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>SVD lebih disukai daripada menghitung covariance matrix secara eksplisit karena:</p>
+<ul class="simple">
+<li><p>Lebih stabil secara numerik</p></li>
+<li><p>Lebih efisien (tidak perlu menghitung matriks 10000×10000)</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="catatan-penting-keterbatasan">
+<h2>📝 Catatan Penting &amp; Keterbatasan<a class="headerlink" href="#catatan-penting-keterbatasan" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Jumlah eigenface = min(n_gambar, n_piksel)</strong> → dengan 6 gambar hanya ada 6 eigenface (bukan 10.000).</p></li>
+<li><p><strong>Eigenface ke-6 adalah noise</strong> karena σ₆ ≈ 0 — dalam praktik sebaiknya dibuang untuk menghindari overfitting.</p></li>
+<li><p><strong>Dataset sangat kecil (6 gambar)</strong> → hasil recognition bisa tidak akurat untuk wajah yang kondisinya sangat berbeda dari training.</p></li>
+<li><p><strong>Metode ini sensitif</strong> terhadap pencahayaan, pose, dan ekspresi wajah karena berbasis piksel mentah.</p></li>
+<li><p>Ini adalah implementasi klasik <strong>Turk &amp; Pentland (1991)</strong> — metode modern (deep learning) jauh lebih robust tapi prinsip matematikanya tetap relevan untuk dipahami.</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="materi7.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Dekomposisi QR dan Nilai Eigen</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="notebooks.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Content with notebooks</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#struktur-dataset">📁 Struktur Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-import-library">⚙️ Install &amp; Import Library</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tahap-1-load-preprocessing-dataset">📊 Tahap 1 — Load &amp; Preprocessing Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tahap-2-hitung-mean-face-wajah-rata-rata">📊 Tahap 2 — Hitung Mean Face (Wajah Rata-rata)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tahap-3-hitung-matrix-a-data-terpusat-centered">📊 Tahap 3 — Hitung Matrix A (Data Terpusat / Centered)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tahap-4-svd-singular-value-decomposition">🔢 Tahap 4 — SVD (Singular Value Decomposition)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#apa-itu-svd">Apa itu SVD?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bagaimana-svd-dihitung">Bagaimana SVD Dihitung?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-setiap-output-matrix">Penjelasan Setiap Output Matrix:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-u-6-6">🔵 Matrix U (6 × 6)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-sigma-6-6">🟡 Matrix Sigma / Σ (6 × 6)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-vt-6-10-000">🟢 Matrix VT (6 × 10.000)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tahap-5-eigenface-visualisasi">🖼️ Tahap 5 — Eigenface (Visualisasi)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tahap-6-proyeksi-training-ke-eigenspace">📐 Tahap 6 — Proyeksi Training ke Eigenspace</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mengapa-u-dan-bukan-sesuatu-yang-lain">Mengapa U × Σ dan bukan sesuatu yang lain?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tahap-7-uji-gambar-baru-recognition">🧪 Tahap 7 — Uji Gambar Baru (Recognition)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#alur-pengenalan-gambar-baru">Alur pengenalan gambar baru:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mengapa-menggunakan-vt-t-untuk-proyeksi">Mengapa menggunakan VT.T untuk proyeksi?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nearest-neighbor-1-nn">Nearest Neighbor (1-NN):</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ringkasan-alur-kerja-lengkap">📌 Ringkasan Alur Kerja Lengkap</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hubungan-svd-dengan-pca-eigenface-method">🧮 Hubungan SVD dengan PCA (Eigenface Method)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#catatan-penting-keterbatasan">📝 Catatan Penting &amp; Keterbatasan</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
